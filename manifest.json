@@ -1,0 +1,35 @@
+{
+  "manifest_version": 3,
+  "name": "Hyacinth Punch Theme",
+  "version": "1.0.0",
+  "description": "A retro pastel Chrome theme in orchid pink, periwinkle and cream — soft, floral, and easy on the eyes.",
+  "icons": {
+    "128": "logo/logo.png"
+  },
+  "theme": {
+    "colors": {
+      "frame":                        [248, 199, 217],
+      "frame_inactive":               [251, 227, 250],
+      "toolbar":                      [251, 227, 250],
+      "tab_text":                     [58, 39, 69],
+      "bookmark_text":                [58, 39, 69],
+      "ntp_background":               [251, 238, 211],
+      "ntp_text":                     [58, 39, 69],
+      "ntp_link":                     [107, 74, 143],
+      "ntp_header":                   [248, 199, 217],
+      "button_background":            [227, 160, 211],
+      "button_background_secondary":  [169, 139, 213],
+      "omnibox_background":           [255, 255, 255],
+      "omnibox_text":                 [58, 39, 69],
+      "toolbar_button_icon":          [58, 39, 69]
+    },
+    "properties": {
+      "ntp_button_background":    [169, 139, 213],
+      "ntp_button_hover":         [152, 120, 200],
+      "ntp_logo_alternate":       1,
+      "ntp_single_row_shortcuts": true
+    },
+    "color_scheme": "light",
+    "default_color_scheme": "light"
+  }
+}
