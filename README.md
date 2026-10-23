@@ -16,7 +16,7 @@
 </p>
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/vaxicy/hyacinth-punch-theme/main/store-assets/promo/1400x560.png" alt="Hyacinth Punch Theme promo" width="700">
+  <img src="https://raw.githubusercontent.com/vaxicy/hyacinth-punch-theme/main/store-assets/promo/1400x560.png?v=2" alt="Hyacinth Punch Theme promo" width="700">
 </p>
 
 ## Overview
@@ -93,7 +93,7 @@ Ready to paste into the store listing (also kept in `store-assets/store-descript
 | `scripts/generate-logo-vector.py` | Render all SVG logo candidates with headless Chromium, build contact sheets, export `logo/logo.png` from `SELECTED` |
 | `scripts/generate-screenshot-headless.py` | Regenerate the browser mockup via Playwright |
 | `scripts/generate-screenshot-2-palette.py` | Regenerate the palette screenshot |
-| `scripts/generate-promo.py` | Regenerate both promo tiles (1400×560 full-bleed stripes, 440×280 dot palette) |
+| `scripts/generate-promo.py` | Regenerate both promo tiles (1400×560 window hero, 440×280 dot palette) |
 | `logo/candidates/` | Candidate previews and light/dark contact sheets |
 | `LICENSE` | Non-Commercial License (English / 中文) |
 
