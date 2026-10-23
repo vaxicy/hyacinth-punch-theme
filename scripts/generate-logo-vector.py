@@ -25,7 +25,7 @@ os.chdir(str(ROOT))                      # relative paths only (non-ASCII path s
 SIZE = 128
 CELL = 512
 PREVIEW = 256
-SELECTED = "01"
+SELECTED = "03"
 CAND_DIR = Path("logo/candidates")
 LOGO_OUT = Path("logo/logo.png")
 
@@ -132,24 +132,29 @@ SVG_03 = svg_open("""
     <stop offset="0.55" stop-color="%s"/>
     <stop offset="1" stop-color="%s"/>
   </linearGradient>
+  <clipPath id="liq3"><path d="M88 112 h80 l-7 96 q-1 12 -14 12 h-38 q-13 0 -14 -12 z"/></clipPath>
   %s
 </defs>
 <path d="M82 74 h92 l-9 134 q-1 14 -16 14 h-42 q-15 0 -16 -14 z" fill="#FFFFFF"
       fill-opacity=".42" stroke="%s" stroke-width="5" filter="url(#ds)"/>
 <path d="M88 112 h80 l-7 96 q-1 12 -14 12 h-38 q-13 0 -14 -12 z" fill="url(#lq3)"/>
 <path d="M88 112 h80 l-1.6 22 h-76.8 z" fill="#FFFFFF" fill-opacity=".20"/>
+<g clip-path="url(#liq3)">
+  <path d="M150 200 C142 172 134 142 128 118" stroke="%s" stroke-width="6" stroke-linecap="round"
+        fill="none" stroke-opacity=".95"/>
+  <path d="M141 168 C126 166 116 152 118 138 C132 138 142 152 141 168 Z" fill="%s" fill-opacity=".95"/>
+  <path d="M136 146 C136 158 136 164 137 170" stroke="%s" stroke-opacity=".35" stroke-width="2.6"
+        stroke-linecap="round" fill="none"/>
+  <path d="M133 138 C140 132 148 122 142 112 C132 118 128 130 133 138 Z" fill="%s" fill-opacity=".9"/>
+</g>
 <ellipse cx="128" cy="74" rx="46" ry="8.5" fill="#FFFFFF" fill-opacity=".55"/>
 <rect x="104" y="132" width="30" height="28" rx="7" fill="#FFFFFF" fill-opacity=".38"
       transform="rotate(-14 119 146)"/>
-<rect x="140" y="150" width="24" height="22" rx="6" fill="#FFFFFF" fill-opacity=".28"
-      transform="rotate(12 152 161)"/>
+<rect x="140" y="170" width="24" height="22" rx="6" fill="#FFFFFF" fill-opacity=".28"
+      transform="rotate(12 152 181)"/>
 <path d="M96 112 q-2 40 0 78" stroke="#FFFFFF" stroke-opacity=".45" stroke-width="5"
       stroke-linecap="round" fill="none"/>
-<g filter="url(#ds)">
-  <path d="M168 96 q26 -20 34 -2 q-18 24 -34 2 Z" fill="%s"/>
-  <path d="M171 100 q17 -3 28 6" stroke="%s" stroke-opacity=".35" stroke-width="3" fill="none"/>
-</g>
-""" % (PINK, ORCHID, DEEP_PERI, SHADOW, PERI, DEEP_PINK, LINK))
+""" % (PINK, ORCHID, DEEP_PERI, SHADOW, PERI, CREAM, CREAM, LINK, CREAM))
 
 SVG_04 = svg_open("""
 <defs>
