@@ -132,29 +132,22 @@ SVG_03 = svg_open("""
     <stop offset="0.55" stop-color="%s"/>
     <stop offset="1" stop-color="%s"/>
   </linearGradient>
-  <clipPath id="liq3"><path d="M88 112 h80 l-7 96 q-1 12 -14 12 h-38 q-13 0 -14 -12 z"/></clipPath>
   %s
 </defs>
 <path d="M82 74 h92 l-9 134 q-1 14 -16 14 h-42 q-15 0 -16 -14 z" fill="#FFFFFF"
       fill-opacity=".42" stroke="%s" stroke-width="5" filter="url(#ds)"/>
 <path d="M88 112 h80 l-7 96 q-1 12 -14 12 h-38 q-13 0 -14 -12 z" fill="url(#lq3)"/>
 <path d="M88 112 h80 l-1.6 22 h-76.8 z" fill="#FFFFFF" fill-opacity=".20"/>
-<g clip-path="url(#liq3)">
-  <path d="M150 200 C142 172 134 142 128 118" stroke="%s" stroke-width="6" stroke-linecap="round"
-        fill="none" stroke-opacity=".95"/>
-  <path d="M141 168 C126 166 116 152 118 138 C132 138 142 152 141 168 Z" fill="%s" fill-opacity=".95"/>
-  <path d="M136 146 C136 158 136 164 137 170" stroke="%s" stroke-opacity=".35" stroke-width="2.6"
-        stroke-linecap="round" fill="none"/>
-  <path d="M133 138 C140 132 148 122 142 112 C132 118 128 130 133 138 Z" fill="%s" fill-opacity=".9"/>
-</g>
 <ellipse cx="128" cy="74" rx="46" ry="8.5" fill="#FFFFFF" fill-opacity=".55"/>
-<rect x="104" y="132" width="30" height="28" rx="7" fill="#FFFFFF" fill-opacity=".38"
-      transform="rotate(-14 119 146)"/>
-<rect x="140" y="170" width="24" height="22" rx="6" fill="#FFFFFF" fill-opacity=".28"
-      transform="rotate(12 152 181)"/>
+<rect x="102" y="136" width="32" height="30" rx="8" fill="#FFFFFF" fill-opacity=".40"
+      transform="rotate(-16 118 151)"/>
+<rect x="138" y="158" width="26" height="24" rx="7" fill="#FFFFFF" fill-opacity=".30"
+      transform="rotate(14 151 170)"/>
+<rect x="112" y="182" width="22" height="20" rx="6" fill="#FFFFFF" fill-opacity=".22"
+      transform="rotate(-8 123 192)"/>
 <path d="M96 112 q-2 40 0 78" stroke="#FFFFFF" stroke-opacity=".45" stroke-width="5"
       stroke-linecap="round" fill="none"/>
-""" % (PINK, ORCHID, DEEP_PERI, SHADOW, PERI, CREAM, CREAM, LINK, CREAM))
+""" % (PINK, ORCHID, DEEP_PERI, SHADOW, PERI))
 
 SVG_04 = svg_open("""
 <defs>
@@ -217,7 +210,7 @@ SVG_06 = svg_open("""
 CANDIDATES = [
     ("01", "bloom-arch", "Retro poster scene: arch, sun and waves", SVG_01),
     ("02", "hyacinth-umbel", "Real petal cluster on a stem — botanical", SVG_02),
-    ("03", "punch-glass", "Tapered tumbler with ice and a sprig", SVG_03),
+    ("03", "punch-glass", "Tapered tumbler with ice — clean, no garnish", SVG_03),
     ("04", "petal-badge", "Single orchid petal in a badge — best at 32px", SVG_04),
     ("05", "punch-splash", "Circle and droplets — the punch itself", SVG_05),
     ("06", "sunburst", "Retro sunburst — boldest silhouette", SVG_06),
