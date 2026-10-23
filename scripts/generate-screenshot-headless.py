@@ -9,9 +9,9 @@ hex calibrated from the user's real screenshot (1080x642).
 Calibrated against the real browser (2026-10-23):
   frame #F8C7D9 (manifest)   toolbar + bookmark bar #FBE3FA (manifest)
   NTP background #F9EAEE (manifest)   omnibox pill #FFFFFF (manifest, verified)
-  Google single-colour logo #EC816D (Chrome derives a coral here)
-  shortcut circle #F1A799   YouTube #FF0033   NTP links #444746
-  shortcut labels #78697C   Customize pill #202124
+  Google single-colour logo #D97993 (Chrome derives rose pink here)
+  shortcut circle #E49FB1   YouTube #FF0033   NTP links #444746
+  shortcut labels #655369   Customize pill #202124
 Geometry targets are the real screenshot's own proportions (% of window height):
   logo glyph 31.3-41.9% (19.8% wide)  ·  search pill 47.2-52.8% (54.5% wide)
   shortcut circles 57.2-63.1%  ·  customize bottom 98.0%
@@ -44,11 +44,11 @@ def colors():
         "ink":      rgb("ntp_text"),
         "tab_text": rgb("tab_text"),
         # calibrated browser-owned literals
-        "logo":     "#EC816D",
-        "circle":   "#F1A799",
+        "logo":     "#D97993",
+        "circle":   "#E49FB1",
         "yt":       "#FF0033",
         "label":    "#444746",
-        "sclabel":  "#78697C",
+        "sclabel":  "#655369",
         "custom":   "#202124",
         "chrome_ic": "#3A2745",
     }

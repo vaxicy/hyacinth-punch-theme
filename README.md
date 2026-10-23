@@ -53,7 +53,7 @@ The source palette is a 70s-style pastel set — pale floss pink, orchid, periwi
 
 | Browser | Palette |
 |:-:|:-:|
-| <img src="https://raw.githubusercontent.com/vaxicy/hyacinth-punch-theme/main/store-assets/screenshots/en/screenshot-1-browser.png" width="420" alt="Hyacinth Punch New Tab"> | <img src="https://raw.githubusercontent.com/vaxicy/hyacinth-punch-theme/main/store-assets/screenshots/en/screenshot-2-palette.png" width="420" alt="Hyacinth Punch palette"> |
+| <img src="https://raw.githubusercontent.com/vaxicy/hyacinth-punch-theme/main/store-assets/screenshots/en/screenshot-1-browser.png?v=2" width="420" alt="Hyacinth Punch New Tab"> | <img src="https://raw.githubusercontent.com/vaxicy/hyacinth-punch-theme/main/store-assets/screenshots/en/screenshot-2-palette.png" width="420" alt="Hyacinth Punch palette"> |
 
 ## Installation
 
