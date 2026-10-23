@@ -1,17 +1,15 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""Hyacinth Punch Theme — vector logo candidates (SVG rendered by headless Chromium).
+"""Hyacinth Punch Theme — vector logo candidates, batch 2 (headless Chromium).
 
-Every mark carries a gradient fill, a soft drop shadow and highlights so it reads
-as a designed icon rather than flat clip-art. The palette is pale, so the floral
-shapes use slightly deepened orchid/periwinkle tones (same hues) plus the ink
-colour for stems and details.
+Batch 1 read too literally (the floret spike looked like beads on a skewer).
+Batch 2 shifts the graphic language: a retro-poster mini scene, a real petal
+cluster, a refined tumbler, a minimal badge, a splash and a sunburst — all with
+gradients, soft shadows and consistent weights.
 
 Playwright screenshots each SVG cell with omit_background=True (true
 transparency); PIL only composes the contact sheets, the inline strip and the
 official logo/logo.png exported from SELECTED.
-
-Colours come from manifest.json. Change SELECTED and re-run; never hand-copy PNGs.
 """
 import json
 import math
@@ -48,7 +46,6 @@ PERI = hx(_C["button_background_secondary"])       # #A98BD5
 LINK = hx(_C["ntp_link"])                          # #6B4A8F
 INK = hx(_C["ntp_text"])                           # #3A2745
 
-# deepened takes on the two signature hues, so the mark survives a pale page
 DEEP_PINK = "#D96BB4"
 DEEP_PERI = "#7E5FB5"
 
@@ -63,178 +60,162 @@ def svg_open(body, defs=""):
             'viewBox="0 0 256 256">%s%s</svg>' % (CELL, CELL, defs, body))
 
 
-def petal(x, y, angle, length, width, fill, vein=None):
-    """Pointed petal standing on (x, y), rotated by `angle`, tip at length."""
-    d = ('M0 0 C %.1f %.1f %.1f %.1f 0 %.1f C %.1f %.1f %.1f %.1f 0 0 Z'
-         % (width * 0.90, -length * 0.24, width * 0.72, -length * 0.74, -length,
-            -width * 0.72, -length * 0.74, -width * 0.90, -length * 0.24))
-    out = ('<g transform="translate(%.1f %.1f) rotate(%.1f)"><path d="%s" fill="%s"/>'
-           % (x, y, angle, d, fill))
-    if vein:
-        out += ('<path d="M0 -%.1f V-%.1f" stroke="%s" stroke-opacity=".30" '
-                'stroke-width="%.1f" stroke-linecap="round" fill="none"/>'
-                % (length * 0.10, length * 0.82, vein, max(1.6, length * 0.05)))
-    return out + '</g>'
-
-
-def spike(base, count=9, fill="", dot=None):
-    """Hyacinth floret cluster: beads along a gently curving stem."""
-    bx, by = base
-    out = []
-    for i in range(count):
-        t = i / (count - 1)
-        cy = by - 22 - t * 118
-        cx = bx + math.sin(t * 2.4) * 7
-        r = 13.5 - t * 7.5
-        out.append('<circle cx="%.1f" cy="%.1f" r="%.1f" fill="%s"/>' % (cx, cy, r, fill))
-        if dot:
-            out.append('<circle cx="%.1f" cy="%.1f" r="%.1f" fill="%s" fill-opacity=".85"/>'
-                       % (cx, cy, max(1.6, r * 0.26), dot))
+def flower(cx, cy, scale, petal_fill, core_fill, petals=5, rx=8.6, ry=14.5):
+    """Small multi-petal bloom centred on (cx, cy)."""
+    out = ['<g transform="translate(%.1f %.1f) scale(%.3f)">' % (cx, cy, scale)]
+    for i in range(petals):
+        a = 360.0 * i / petals
+        out.append('<ellipse cx="0" cy="-11" rx="%.1f" ry="%.1f" fill="%s" '
+                   'transform="rotate(%.1f)"/>' % (rx, ry, petal_fill, a))
+    out.append('<circle cx="0" cy="0" r="5.6" fill="%s"/>' % core_fill)
+    out.append('</g>')
     return "".join(out)
+
+
+def ray(cx, cy, a_deg, r0, r1, half_w, fill):
+    a = math.radians(a_deg)
+    x0, y0 = cx + r0 * math.cos(a), cy + r0 * math.sin(a)
+    ex, ey = cx + r1 * math.cos(a), cy + r1 * math.sin(a)
+    px, py = -math.sin(a), math.cos(a)
+    return ('<path d="M%.1f %.1f L%.1f %.1f L%.1f %.1f Z" fill="%s"/>'
+            % (x0, y0, ex + px * half_w, ey + py * half_w,
+               ex - px * half_w, ey - py * half_w, fill))
 
 
 # ------------------------------------------------------------------ candidates
 SVG_01 = svg_open("""
 <defs>
-  <linearGradient id="sp1" x1="0" y1="1" x2="1" y2="0">
+  <clipPath id="arch1"><path d="M66 224 V116 a62 62 0 0 1 124 0 V224 Z"/></clipPath>
+  %s
+</defs>
+<g clip-path="url(#arch1)">
+  <rect x="60" y="50" width="136" height="180" fill="%s"/>
+  <circle cx="128" cy="108" r="30" fill="%s"/>
+  <path d="M56 168 C92 148 108 184 140 172 C172 160 184 184 200 176 V232 H56 Z" fill="%s"/>
+  <path d="M56 194 C92 178 108 208 140 197 C172 186 184 208 200 200 V232 H56 Z" fill="%s"/>
+</g>
+<path d="M66 224 V116 a62 62 0 0 1 124 0 V224" fill="none" stroke="%s" stroke-width="15"
+      stroke-linecap="round" filter="url(#ds)"/>
+<circle cx="190" cy="72" r="9" fill="%s"/>
+""" % (SHADOW, PALE, DEEP_PINK, PERI, DEEP_PERI, DEEP_PERI, ORCHID))
+
+SVG_02 = svg_open("""
+<defs>
+  <linearGradient id="um2" x1="0" y1="0" x2="0.6" y2="1">
+    <stop offset="0" stop-color="%s"/>
+    <stop offset="1" stop-color="%s"/>
+  </linearGradient>
+  %s
+</defs>
+<path d="M128 228 C128 196 126 178 128 158" stroke="%s" stroke-width="7" stroke-linecap="round"
+      fill="none"/>
+<path d="M128 214 C104 206 96 188 96 176" stroke="%s" stroke-width="5" stroke-linecap="round" fill="none"/>
+<path d="M128 214 C152 206 160 188 160 176" stroke="%s" stroke-width="5" stroke-linecap="round" fill="none"/>
+<g filter="url(#ds)">
+  %s
+  %s
+  %s
+  %s
+  %s
+</g>
+""" % (DEEP_PINK, DEEP_PERI, SHADOW, LINK, LINK, LINK,
+       flower(128, 118, 1.30, "url(#um2)", CREAM),
+       flower(96, 148, 0.86, ORCHID, CREAM),
+       flower(160, 148, 0.86, ORCHID, CREAM),
+       flower(112, 172, 0.62, PERI, CREAM),
+       flower(146, 170, 0.62, PERI, CREAM)))
+
+SVG_03 = svg_open("""
+<defs>
+  <linearGradient id="lq3" x1="0" y1="0" x2="0.5" y2="1">
     <stop offset="0" stop-color="%s"/>
     <stop offset="0.55" stop-color="%s"/>
     <stop offset="1" stop-color="%s"/>
   </linearGradient>
   %s
 </defs>
-<path d="M128 200 V226" stroke="%s" stroke-width="7" stroke-linecap="round"/>
-%s
-%s
-%s
-<g filter="url(#ds)">%s</g>
-%s
-""" % (DEEP_PERI, ORCHID, DEEP_PINK, SHADOW, LINK,
-       petal(128, 200, -44, 60, 21, PERI, LINK),
-       petal(128, 200, 44, 60, 21, PERI, LINK),
-       petal(128, 176, 0, 34, 13, ORCHID, LINK),
-       spike((128, 200), count=9, fill="url(#sp1)", dot=None),
-       '<circle cx="196" cy="86" r="7" fill="%s" fill-opacity=".45"/>' % DEEP_PERI))
-
-SVG_02 = svg_open("""
-<defs>
-  <linearGradient id="bd2" x1="0" y1="0" x2="0.8" y2="1">
-    <stop offset="0" stop-color="%s"/>
-    <stop offset="1" stop-color="%s"/>
-  </linearGradient>
-  %s
-</defs>
-<circle cx="128" cy="128" r="102" fill="url(#bd2)"/>
-<circle cx="128" cy="128" r="102" fill="none" stroke="%s" stroke-opacity=".22" stroke-width="4"/>
-<g transform="translate(128 132) scale(0.70) translate(-128 -136)">
-  %s
-  %s
-  %s
-  %s
-</g>
-""" % (DEEP_PERI, DEEP_PINK, SHADOW, PALE,
-       petal(128, 214, 148, 58, 19, PALE, None),
-       petal(128, 214, 32, 58, 19, PALE, None),
-       spike((128, 214), count=9, fill=PALE, dot=None),
-       '<circle cx="128" cy="214" r="9" fill="%s"/>' % CREAM))
-
-SVG_03 = svg_open("""
-<defs>
-  <linearGradient id="pl3" x1="0" y1="0" x2="0.3" y2="1">
-    <stop offset="0" stop-color="%s"/>
-    <stop offset="1" stop-color="%s"/>
-  </linearGradient>
-  <linearGradient id="pc3" x1="0" y1="0" x2="0.6" y2="1">
-    <stop offset="0" stop-color="%s"/>
-    <stop offset="1" stop-color="%s"/>
-  </linearGradient>
-  %s
-</defs>
-<path d="M78 74 h100 l-12 132 q-2 16 -18 16 h-40 q-16 0 -18 -16 z" fill="url(#pl3)"
-      fill-opacity=".55" stroke="%s" stroke-opacity=".35" stroke-width="4"/>
-<path d="M78 74 h100" stroke="%s" stroke-opacity=".45" stroke-width="5" stroke-linecap="round"/>
-<path d="M86 116 h84 l-8 90 q-2 12 -14 12 h-40 q-12 0 -14 -12 z" fill="url(#pc3)"/>
-<rect x="104" y="132" width="34" height="30" rx="7" fill="#FFFFFF" fill-opacity=".38"
-      transform="rotate(-12 121 147)"/>
-<ellipse cx="100" cy="96" rx="16" ry="9" fill="#FFFFFF" opacity=".35" transform="rotate(-20 100 96)"/>
+<path d="M82 74 h92 l-9 134 q-1 14 -16 14 h-42 q-15 0 -16 -14 z" fill="#FFFFFF"
+      fill-opacity=".42" stroke="%s" stroke-width="5" filter="url(#ds)"/>
+<path d="M88 112 h80 l-7 96 q-1 12 -14 12 h-38 q-13 0 -14 -12 z" fill="url(#lq3)"/>
+<path d="M88 112 h80 l-1.6 22 h-76.8 z" fill="#FFFFFF" fill-opacity=".20"/>
+<ellipse cx="128" cy="74" rx="46" ry="8.5" fill="#FFFFFF" fill-opacity=".55"/>
+<rect x="104" y="132" width="30" height="28" rx="7" fill="#FFFFFF" fill-opacity=".38"
+      transform="rotate(-14 119 146)"/>
+<rect x="140" y="150" width="24" height="22" rx="6" fill="#FFFFFF" fill-opacity=".28"
+      transform="rotate(12 152 161)"/>
+<path d="M96 112 q-2 40 0 78" stroke="#FFFFFF" stroke-opacity=".45" stroke-width="5"
+      stroke-linecap="round" fill="none"/>
 <g filter="url(#ds)">
-  <path d="M170 92 q22 -18 30 -2 q-16 22 -30 2 Z" fill="%s"/>
-  <path d="M172 96 q16 -2 26 6" stroke="%s" stroke-opacity=".35" stroke-width="3" fill="none"/>
+  <path d="M168 96 q26 -20 34 -2 q-18 24 -34 2 Z" fill="%s"/>
+  <path d="M171 100 q17 -3 28 6" stroke="%s" stroke-opacity=".35" stroke-width="3" fill="none"/>
 </g>
-""" % (PERI, LINK, DEEP_PINK, ORCHID, SHADOW, LINK, LINK, DEEP_PINK, LINK))
+""" % (PINK, ORCHID, DEEP_PERI, SHADOW, PERI, DEEP_PINK, LINK))
 
 SVG_04 = svg_open("""
 <defs>
-  <linearGradient id="pf4" x1="0" y1="1" x2="1" y2="0">
+  <linearGradient id="bd4" x1="0" y1="0" x2="0.85" y2="1">
     <stop offset="0" stop-color="%s"/>
-    <stop offset="0.5" stop-color="%s"/>
     <stop offset="1" stop-color="%s"/>
   </linearGradient>
   %s
 </defs>
-<path d="M128 216 V150" stroke="%s" stroke-width="7" stroke-linecap="round"/>
-<g filter="url(#ds)">
-%s
-%s
-%s
-%s
-%s
+<circle cx="128" cy="128" r="102" fill="url(#bd4)" filter="url(#ds)"/>
+<g transform="translate(128 138) rotate(18)">
+  <path d="M0 -78 C34 -58 44 -18 22 22 C10 44 -10 44 -22 22 C-44 -18 -34 -58 0 -78 Z"
+        fill="%s" fill-opacity=".95"/>
+  <path d="M0 -70 V26" stroke="%s" stroke-opacity=".35" stroke-width="4" stroke-linecap="round"/>
 </g>
-""" % (DEEP_PERI, ORCHID, DEEP_PINK, SHADOW, LINK,
-       petal(128, 152, -74, 104, 27, "url(#pf4)", LINK),
-       petal(128, 152, -44, 112, 26, "url(#pf4)", LINK),
-       petal(128, 152, -14, 96, 24, "url(#pf4)", LINK),
-       petal(128, 152, 16, 112, 26, "url(#pf4)", LINK),
-       petal(128, 152, 46, 104, 27, "url(#pf4)", LINK)))
+<circle cx="128" cy="176" r="9" fill="%s"/>
+<circle cx="196" cy="74" r="7" fill="%s" fill-opacity=".6"/>
+""" % (DEEP_PERI, DEEP_PINK, SHADOW, CREAM, DEEP_PINK, CREAM, CREAM))
 
 SVG_05 = svg_open("""
-<defs>%s</defs>
-<g transform="translate(0 -10)">
-<g filter="url(#ds)" fill="none" stroke-linecap="round">
-  <path d="M64 224 V120 a64 64 0 0 1 128 0 V224" stroke="%s" stroke-width="18"/>
-</g>
-<circle cx="128" cy="136" r="22" fill="%s"/>
-<g filter="url(#ds)">
-  <path d="M52 196 C92 184 116 148 122 118" stroke="%s" stroke-width="8" fill="none" stroke-linecap="round"/>
-%s
-%s
-%s
-</g>
-</g>
-""" % (SHADOW, PERI, DEEP_PERI, LINK,
-       petal(100, 176, -136, 46, 16, DEEP_PINK, LINK),
-       petal(116, 148, -110, 42, 15, ORCHID, LINK),
-       petal(120, 124, -88, 36, 13, DEEP_PINK, LINK)))
-
-SVG_06 = svg_open("""
 <defs>
-  <linearGradient id="dp6" x1="0" y1="0" x2="0.7" y2="1">
+  <linearGradient id="sp5" x1="0" y1="0" x2="0.7" y2="1">
     <stop offset="0" stop-color="%s"/>
-    <stop offset="0.6" stop-color="%s"/>
     <stop offset="1" stop-color="%s"/>
   </linearGradient>
   %s
 </defs>
-<path d="M128 44 C168 96 192 126 192 156 C192 192 163 216 128 216 C93 216 64 192 64 156
-         C64 126 88 96 128 44 Z" fill="url(#dp6)" filter="url(#ds)"/>
-<ellipse cx="106" cy="152" rx="17" ry="26" fill="#FFFFFF" opacity=".28" transform="rotate(-16 106 152)"/>
+<g filter="url(#ds)">
+  <circle cx="112" cy="148" r="52" fill="url(#sp5)"/>
+  <circle cx="158" cy="118" r="34" fill="%s" fill-opacity=".92"/>
+</g>
+<circle cx="98" cy="128" r="7" fill="#FFFFFF" fill-opacity=".55"/>
+<g fill="%s">
+  <circle cx="180" cy="176" r="13"/>
+  <circle cx="196" cy="146" r="8"/>
+  <circle cx="168" cy="196" r="7"/>
+  <circle cx="76" cy="90" r="10"/>
+  <circle cx="58" cy="118" r="6"/>
+  <circle cx="196" cy="196" r="5"/>
+</g>
+<g fill="%s">
+  <circle cx="62" cy="76" r="5"/>
+  <circle cx="150" cy="60" r="6"/>
+</g>
+""" % (DEEP_PINK, DEEP_PERI, SHADOW, ORCHID, ORCHID, PERI))
+
+SVG_06 = svg_open("""
+<defs>%s</defs>
+<g filter="url(#ds)">
 %s
 %s
-%s
-<circle cx="150" cy="176" r="6" fill="%s" fill-opacity=".8"/>
-""" % (DEEP_PINK, ORCHID, DEEP_PERI, SHADOW,
-       petal(128, 190, -20, 40, 13, "#FFFFFF", None),
-       petal(128, 190, -90, 46, 14, "#FFFFFF", None),
-       petal(128, 190, -160, 40, 13, "#FFFFFF", None),
-       CREAM))
+<circle cx="128" cy="128" r="46" fill="%s"/>
+<circle cx="128" cy="128" r="30" fill="%s"/>
+</g>
+""" % (SHADOW,
+       "".join(ray(128, 128, -90 + 30 * i, 52, 94, 8.0, ORCHID) for i in range(12)),
+       "".join(ray(128, 128, -90 + 30 * i + 15, 52, 83, 5.5, PERI) for i in range(12)),
+       DEEP_PINK, CREAM))
 
 CANDIDATES = [
-    ("01", "hyacinth-spike", "Hyacinth floret spike with two leaves — most literal", SVG_01),
-    ("02", "hyacinth-badge", "Pale spike in an orchid badge — strongest at 32px", SVG_02),
-    ("03", "punch-glass", "Punch tumbler with ice and a sprig — most product-like", SVG_03),
-    ("04", "petal-fan", "Five-petal fan — abstract, echoes the poster leaf", SVG_04),
-    ("05", "arch-bloom", "Leaf over an arch — mirrors the source artwork", SVG_05),
-    ("06", "punch-drop", "Gradient drop with petals — softest silhouette", SVG_06),
+    ("01", "bloom-arch", "Retro poster scene: arch, sun and waves", SVG_01),
+    ("02", "hyacinth-umbel", "Real petal cluster on a stem — botanical", SVG_02),
+    ("03", "punch-glass", "Tapered tumbler with ice and a sprig", SVG_03),
+    ("04", "petal-badge", "Single orchid petal in a badge — best at 32px", SVG_04),
+    ("05", "punch-splash", "Circle and droplets — the punch itself", SVG_05),
+    ("06", "sunburst", "Retro sunburst — boldest silhouette", SVG_06),
 ]
 
 
@@ -323,9 +304,9 @@ def main():
     CAND_DIR.mkdir(parents=True, exist_ok=True)
     rendered = render_cells()
     contact_sheet(rendered, (252, 245, 240), (58, 39, 69), (128, 110, 128),
-                  CAND_DIR / "contact-light.png", "Hyacinth Punch — vector logo candidates (light)")
+                  CAND_DIR / "contact-light.png", "Hyacinth Punch — logo candidates v2 (light)")
     contact_sheet(rendered, (38, 28, 46), (251, 238, 211), (196, 168, 196),
-                  CAND_DIR / "contact-dark.png", "Hyacinth Punch — vector logo candidates (dark)")
+                  CAND_DIR / "contact-dark.png", "Hyacinth Punch — logo candidates v2 (dark)")
     inline_strip(rendered, CAND_DIR / "inline-strip.png")
     sel = [c for c in CANDIDATES if c[0] == SELECTED][0]
     icon = rendered[sel[0]].resize((SIZE, SIZE), Image.LANCZOS)
