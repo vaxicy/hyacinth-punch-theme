@@ -131,11 +131,16 @@ def compose_window(size=(1400, 560)):
            fill=LOGO_ROSE)
     d.rounded_rectangle([wx0 + 60, wy0 + 220, wx1 - 60, wy0 + 258], radius=19, fill=WHITE)
     d.text((wx0 + 92, wy0 + 229), "Search Google or type a URL", font=font(13), fill=(120, 110, 125))
-    for i in range(3):
-        cx = wx0 + 150 + i * 96
+    # shortcut row: the group is centred in the card and每个标签按自己的圆点居中，
+    # 不能用带空格的一整串文字手摆（会整体偏左、标签与圆点错开）
+    f_lab = font(12)
+    card_mid = wx0 + (wx1 - wx0) / 2
+    for i, lab in enumerate(("YouTube", "Web Store", "Add shortcut")):
+        cx = card_mid + (i - 1) * 96
         d.ellipse([cx - 26, wy0 + 288, cx + 26, wy0 + 340], fill=DISC)
-    d.text((wx0 + 60, wy0 + 352), "YouTube          Web Store          Add shortcut",
-           font=font(12), fill=(120, 110, 125))
+        lw = text_w(d, lab, f_lab)
+        d.text((cx - lw / 2, wy0 + 352), lab, font=f_lab, fill=(120, 110, 125))
+        assert abs((cx - lw / 2) + lw / 2 - cx) < 0.6, "label not centred on its disc"
 
     # ---- left column
     lg = Image.open("logo/logo.png").convert("RGBA").resize((120, 120), Image.LANCZOS)
