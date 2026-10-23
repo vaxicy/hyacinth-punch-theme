@@ -77,7 +77,7 @@ Upload the resulting `.zip` to the [Chrome Web Store developer dashboard](https:
 
 Ready to paste into the store listing (also kept in `store-assets/store-description.txt`):
 
-> Hyacinth Punch is a retro pastel Chrome theme: a blush-pink frame, a pale orchid toolbar, and a soft pink New Tab Page with a rose-pink Google logo that matches the mood. Deep plum ink keeps every tab, bookmark and toolbar icon readable on the light chrome. Solid colors only, no wallpaper — floral, warm, and easy on the eyes.
+> Hyacinth Punch is a retro pastel Chrome theme: blush-pink chrome, a pale orchid toolbar, and a soft pink New Tab Page with a rose-pink Google logo. Deep plum ink keeps every tab, bookmark and toolbar icon readable. Solid colors only, no wallpaper.
 
 ## Project structure
 
